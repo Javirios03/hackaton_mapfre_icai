@@ -19,7 +19,10 @@ from sklearn.ensemble import (
     RandomForestClassifier, GradientBoostingClassifier, VotingClassifier
 )
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, roc_auc_score
+from sklearn.metrics import (
+    accuracy_score, roc_auc_score, average_precision_score,
+    precision_score, recall_score, f1_score, confusion_matrix
+)
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
@@ -107,9 +110,23 @@ def load_model() -> Any:
     global _cached_metrics
     y_pred = pipeline.predict(X_test)
     y_proba = pipeline.predict_proba(X_test)[:, 1]
+
+    # recall@800: top 800 by predicted probability
+    top_k = min(800, len(y_test))
+    top_indices = np.argsort(y_proba)[::-1][:top_k]
+    recall_at_800 = int(y_test.iloc[top_indices].sum())
+    total_positives = int(y_test.sum())
+
+    cm = confusion_matrix(y_test, y_pred).tolist()
     _cached_metrics = {
         "accuracy": float(accuracy_score(y_test, y_pred)),
         "auc_roc": float(roc_auc_score(y_test, y_proba)) if y_test.nunique() > 1 else 0.0,
+        "auc_pr": float(average_precision_score(y_test, y_proba)) if y_test.nunique() > 1 else 0.0,
+        "precision": float(precision_score(y_test, y_pred, zero_division=0)),
+        "recall": float(recall_score(y_test, y_pred, zero_division=0)),
+        "f1": float(f1_score(y_test, y_pred, zero_division=0)),
+        "recall_at_800": f"{recall_at_800}/{total_positives}",
+        "confusion_matrix": cm,
         "n_features": len(_DEFAULT_FEATURE_COLS),
         "model_type": "VotingClassifier(RF+GB+LR)",
         "n_train": len(X_train),
