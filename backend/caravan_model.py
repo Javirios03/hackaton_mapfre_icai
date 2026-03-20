@@ -79,14 +79,16 @@ def load_model() -> Any:
     # TODO (alumno): Sustituye por tu modelo y/o hiperparámetros (p. ej. RandomForest, XGBoost)
     # Ensemble of 3 diverse models
     rf = RandomForestClassifier(
-        n_estimators=500, max_depth=15, min_samples_leaf=5,
-        class_weight="balanced", random_state=42, n_jobs=-1
+        n_estimators=1000, max_depth=12, min_samples_leaf=3,
+        max_features="sqrt", class_weight="balanced",
+        random_state=42, n_jobs=-1
     )
     gb = GradientBoostingClassifier(
-        n_estimators=300, max_depth=5, learning_rate=0.05,
-        subsample=0.8, min_samples_leaf=10, random_state=42
+        n_estimators=500, max_depth=4, learning_rate=0.03,
+        subsample=0.8, max_features="sqrt", min_samples_leaf=15,
+        random_state=42
     )
-    lr = LogisticRegression(max_iter=1000, class_weight="balanced", C=0.1, random_state=42)
+    lr = LogisticRegression(max_iter=1000, class_weight="balanced", C=0.05, random_state=42)
 
     ensemble = VotingClassifier(
         estimators=[("rf", rf), ("gb", gb), ("lr", lr)],
