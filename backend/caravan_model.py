@@ -23,7 +23,7 @@ from sklearn.model_selection import train_test_split
 
 # Ruta al dataset (desde backend/, data/ está en la raíz del proyecto)
 _DATA_DIR = Path(__file__).resolve().parent.parent / "data"
-_TRAIN_FILE = _DATA_DIR / "TICDATA2000.txt"
+_TRAIN_FILE = _DATA_DIR / "ticdata2000.txt"
 # 86 atributos: M1..M85 (sociodemográficos + productos) y CARAVAN (target)
 _COL_NAMES = [f"M{i}" for i in range(1, 86)] + ["CARAVAN"]
 # TODO (alumno): Tras tu análisis de feature selection, sustituye por tu lista de variables
