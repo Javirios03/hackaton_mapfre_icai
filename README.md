@@ -1,5 +1,7 @@
 # Hackatón IA — COIL 2000 (Seguro de caravana)
 
+![Autoresearch: AUC-ROC progression](autoresearch_results.png)
+
 Predicción de **interés en seguro de caravana** con el dataset [COIL 2000](https://archive.ics.uci.edu/ml/datasets/Insurance+Company+Benchmark+(COIL+2000)): modelo → API FastAPI → frontend Streamlit.
 
 **Guía principal:** [GUIA_HACKATON.md](GUIA_HACKATON.md)
