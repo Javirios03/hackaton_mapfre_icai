@@ -1,0 +1,27 @@
+{
+  "val_auc_roc": 0.774044,
+  "val_auc_pr": 0.224931,
+  "val_accuracy": 0.918455,
+  "val_precision": 0.272727,
+  "val_recall": 0.214286,
+  "val_f1": 0.24,
+  "recall_at_800": 65,
+  "recall_at_800_pct": 0.9286,
+  "total_positives": 70,
+  "confusion_matrix": [
+    [
+      1055,
+      40
+    ],
+    [
+      55,
+      15
+    ]
+  ],
+  "n_features": 85,
+  "model_type": "VotingClassifier",
+  "n_train": 4657,
+  "n_test": 1165,
+  "total_seconds": 6.8,
+  "status": "ok"
+}
