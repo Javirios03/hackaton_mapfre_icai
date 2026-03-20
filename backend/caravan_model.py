@@ -28,7 +28,7 @@ _TRAIN_FILE = _DATA_DIR / "ticdata2000.txt"
 _COL_NAMES = [f"M{i}" for i in range(1, 86)] + ["CARAVAN"]
 # TODO (alumno): Tras tu análisis de feature selection, sustituye por tu lista de variables
 # (mismo orden que usarás en el modelo). Por defecto se usan las 10 primeras.
-_DEFAULT_FEATURE_COLS = ["M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9", "M10"]
+_DEFAULT_FEATURE_COLS = [f"M{i}" for i in range(1, 86)]
 _TARGET_COL = "CARAVAN"
 
 # Cache de datos y métricas para get_dataset_info / get_metrics
