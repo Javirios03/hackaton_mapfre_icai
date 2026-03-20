@@ -14,7 +14,7 @@ from functools import lru_cache
 from typing import Any
 
 import pandas as pd
-from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, roc_auc_score
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
@@ -76,7 +76,10 @@ def load_model() -> Any:
     pipeline = Pipeline(
         steps=[
             ("scaler", StandardScaler()),
-            ("clf", LogisticRegression(max_iter=500, class_weight="balanced")),
+            ("clf", RandomForestClassifier(
+                n_estimators=300, max_depth=15, min_samples_leaf=5,
+                class_weight="balanced", random_state=42, n_jobs=-1
+            )),
         ]
     )
     pipeline.fit(X_train, y_train)
@@ -89,7 +92,7 @@ def load_model() -> Any:
         "accuracy": float(accuracy_score(y_test, y_pred)),
         "auc_roc": float(roc_auc_score(y_test, y_proba)) if y_test.nunique() > 1 else 0.0,
         "n_features": len(_DEFAULT_FEATURE_COLS),
-        "model_type": "LogisticRegression",
+        "model_type": "RandomForestClassifier",
         "n_train": len(X_train),
         "n_test": len(X_test),
     }
